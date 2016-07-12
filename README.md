@@ -17,5 +17,6 @@ or add 'the_ruby_searcher' to your gem file. use
 	
 	require 'the_ruby_searcher'
 	
-	rs = Rbsearcher.new 'ag' (ag is cmd of silver searcher)
+	rs = Rbsearcher.new 'ag' #(ag is cmd of silver searcher)
 	rs.search(patter, file_path)
+	# return [stdout, stdeerr, status]

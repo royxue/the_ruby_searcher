@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "the_ruby_searcher"
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.authors     = ["Roy Xue"]
   s.email       = "lxue@tesla.com"
   s.homepage    = "https://github.com/royxue/the_ruby_searcher"
@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
   s.files = ["lib/the_ruby_searcher.rb"]
   # s.add_dependency 'some-gem'
   # s.extra_rdoc_files = ['README.md', 'LICENSE']
-  # s.license = 'MIT'
+  s.license = 'MIT'
 end

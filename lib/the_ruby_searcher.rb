@@ -20,13 +20,13 @@ class Rbsearcher
   end
 
   def search(pattern, path)
-  	if not check()
-  	  puts "Select Engine not exist, automatically switch to grep"
+    if not check()
+      puts "Select Engine not exist, automatically switch to grep"
       @engine = 'grep'
     end
-  	cmd = [@engine, pattern, path].join(" ")
-  	puts cmd
-  	stdout, stdeerr, status = Open3.capture3(cmd)
-  	return stdout, stdeerr, status
+    cmd = [@engine, pattern, path].join(" ")
+    puts cmd
+    stdout, stdeerr, status = Open3.capture3(cmd)
+    return stdout, stdeerr, status
   end
 end
