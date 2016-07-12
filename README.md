@@ -1,6 +1,8 @@
 # The ruby searcher
 Simple ruby bindings for ag, ack, grep, etc.
 
+Requires ruby 1.9+.
+
 ---
 ###Installation
 	
@@ -15,7 +17,6 @@ or add 'the_ruby_searcher' to your gem file. use
 	
 ###Usage
 	
-	require 'the_ruby_searcher'
-	
-	rs = Rbsearcher.new 'ag' (ag is cmd of silver searcher)
-	rs.search(patter, file_path)
+	require 'the_ruby_searcher'	
+	rs = Ag.search(pattern, file_path, [engine])
+	=> {line_no => line}
