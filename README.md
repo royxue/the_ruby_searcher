@@ -1,4 +1,6 @@
 # The ruby searcher
+Simple ruby bindings for ag, ack, grep, etc.
+
 ---
 ###Installation
 	
@@ -8,7 +10,7 @@ or add 'the_ruby_searcher' to your gem file. use
 
 	bundle install
 
-###Recommodation Engine
+###Recomended Engine
 [silver searcher](https://github.com/ggreer/the_silver_searcher)
 	
 ###Usage
