@@ -1,32 +1,48 @@
-require 'open3'
+module Ag
+  extend self
 
-class Rbsearcher
-  def initialize(engine='ag')
-  	@engine = engine
+  def search(pattern, path, e = "ag")
+    engine = find_engine(e)
+    warn(e,engine) if e != engine
+    cmd = [engine, pattern, path, "-n"]
+    out = IO.popen(cmd).read
+    if out != ""
+      out.split("\n").map{ |l| l.split(":") }.to_h
+    else
+      raise SystemCallError, "Something went wrong, check the logs."
+    end
   end
 
-  def check
-  	cmd = ["which", @engine].join(" ")
-    stdout, stdeerr, status = Open3.capture3(cmd)
-    if stdout.include? 'not found'
+  private
+
+  def warn(e,engine)
+    puts "WARN: Could not find search engine: #{e}. Using #{engine}."
+  end
+
+  def check(engine)
+  	cmd = ["which", engine].join(" ")
+    stdout = IO.popen(cmd).read
+    if stdout != ""
       return false
     else
       return true
     end
   end
 
-  def switch(engine)
-    @engine = engine
+  def engines
+    ["ag", "ack", "grep"]
   end
 
-  def search(pattern, path)
-  	if not check()
-  	  puts "Select Engine not exist, automatically switch to grep"
-      @engine = 'grep'
+  def find_engine(e)
+    while check(e)
+      index = engines.index(e)
+      index = index + 1 rescue 0
+      if index < engines.size
+        e = engines[index]
+      else
+        raise ArgumentError, "Could not find any compatible search engines installed on system. Try installing Ag: https://github.com/ggreer/the_silver_searcher"
+      end
     end
-  	cmd = [@engine, pattern, path].join(" ")
-  	puts cmd
-  	stdout, stdeerr, status = Open3.capture3(cmd)
-  	return stdout, stdeerr, status
+    e
   end
 end
