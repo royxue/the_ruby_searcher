@@ -18,5 +18,10 @@ or add 'the_ruby_searcher' to your gem file. use
 ###Usage
 	
 	require 'the_ruby_searcher'	
-	rs = Ag.search(pattern, file_path, [engine])
+	rs = Ag.search(pattern, file_path, [engine], lno)
+
+	with lno: true 
 	=> {line_no => line}
+
+	with lno: false (default)
+	=> [line]

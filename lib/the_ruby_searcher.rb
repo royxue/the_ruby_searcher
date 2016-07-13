@@ -1,13 +1,38 @@
 module Ag
   extend self
 
-  def search(pattern, path, e = "ag")
+  def search(pattern, path, e = "ag", lno=false)
     engine = find_engine(e)
     warn(e,engine) if e != engine
-    cmd = [engine, pattern, path, "-n"]
+    if lno
+      case engine
+        when "ag"
+          flag = "--numbers"
+        when "grep"
+          flag = "-n"
+        else
+          flag = ""
+      end
+    else
+      case engine
+        when "ag"
+          flag = "--nonumbers"
+        else
+          flag = ""
+      end
+    end
+    if flag == ""
+   	  cmd = [engine, pattern, path]
+    else
+      cmd = [engine, pattern, path, flag]
+    end
     out = IO.popen(cmd).read
     if out != ""
-      out.split("\n").map{ |l| l.split(":") }.to_h
+      if lno
+        out.split("\n").map{ |l| l.split(":") }.to_h
+      else
+        out.split("\n")
+      end
     else
       raise SystemCallError, "Something went wrong, check the logs."
     end
